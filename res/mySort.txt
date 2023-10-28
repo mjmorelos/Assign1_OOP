@@ -1,0 +1,83 @@
+Sorting Algorithm:ShellSort
+
+DETAILED DESCRIPTION:
+
+The shell sort is a variation of the insertion sort. 
+The main way of doing shell sorting is to break the original
+array into smaller sub-arrays which then are sorted using 
+insertion sort.
+
+How are the sub-arrays created?
+
+The sub arrays are created by selecting a set of gap values,
+which determines the spacing between elements that are 
+compared and swapped
+
+The steps of Shell Sort algorithm:
+1. Generate gap sequence: Before sorting, we need to generate a sequence of gap values. 
+The generated gap sequence determines the spacing between the element.
+
+2. Outer Loop for Gap values: We start with an outer loop that iterates over the gap values in the sequence 
+For each of the gap value, the algorithm will eventually perform a pass to sort elements within the gap.
+
+3. Inner Loop: We start with an inner loop that iterates over the array element starting from the first element.
+
+4. Element comparison and swapping: For each of the following elements in the inner loop, compare the element with the one gap
+position behind it. If the element is smaller, swap the element to move the smaller element towards the start of the array 
+and continue this process until the entire sub-array is sorted.
+
+5. All Gap Values: continue the outer loop, applying the insertion sort with different gap values. 
+This process is repeated until the gap value becomes 1
+
+6. Final Pass with Gap: Once the gap value becomes 1, we've performed a final pass using insertion sort similar to the way
+we did it for the insertion sort.
+
+Steps of Algorithm in pseudocode:
+
+Shell Sort for naturally comparable types:
+plaintextCopy codeProcedure ShellSort(array)
+    n <- length of array
+    gap <- n/2
+    while gap > 0 do
+        for i from gap to n-1 do
+            temp <- array[i]
+            j <- i
+            while j >= gap and array[j - gap] > temp do
+                array[j] <- array[j - gap]
+                j <- j - gap
+            end while
+            array[j] <- temp
+        end for
+        gap <- gap / 2
+    end while
+End Procedure
+
+
+Shell Sort with a custom comparator:
+plaintextCopy codeProcedure ShellSort(array, comparator)
+    n <- length of array
+    gap <- n/2
+    while gap > 0 do
+        for i from gap to n-1 do
+            temp <- array[i]
+            j <- i
+            while j >= gap and comparator.compare(array[j - gap], temp) > 0 do
+                array[j] <- array[j - gap]
+                j <- j - gap
+            end while
+            array[j] <- temp
+        end for
+        gap <- gap / 2
+    end while
+End Procedure
+
+
+COMPLEXITY ANALYSIS:
+
+The similarities between the shell sort algorithm and the insertion sort, the time complexity is really the same. 
+However, the advantages of shell sort is that it performs the initial sorting with larger gaps which makes it more efficient 
+for partially sorted arrays.
+
+Time Complexity of the Shell Sort:
+
+The time complexity is O(n^2) in the worst case
