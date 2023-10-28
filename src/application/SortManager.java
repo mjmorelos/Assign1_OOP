@@ -1,14 +1,19 @@
 package application;
 
 import java.io.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
+
+import utility.Sorts;
 
 import shape.Shape;
 
-public class SortManager {
+public class SortManager{
 	char comparison;
 	char sortType;
+	char compareType;
 	String fileName;
 	Shape [] shapes;
 
@@ -31,30 +36,35 @@ public class SortManager {
 				
 		}
 		
-		fillShapes();
-		sortShapes();
+//		fillShapes();
+//		sortShapes();
 		
+	}
+	
+	
+
+
+	public void sortShapes() {
+	    if (sortType == 'b' || sortType == 'B') {  // Check if bubble sort is selected
+	        if (comparison == 'h' || comparison == 'H') {  // Check if comparison is based on height
+	            Sorts.bubbleSort(shapes);  // Use natural ordering (height)
+	        } else if (comparison == 'v' || comparison == 'V') {  // Check if comparison is based on volume
+	            Sorts.bubbleSort(shapes, new Comparator<Shape>() {
+	                @Override
+	                public int compare(Shape firstshape, Shape secondshape) {
+	                    return firstshape.compare(firstshape, secondshape);  // Use volume comparison
+	                }
+	            });
+	        }
+	    }
 	}
 
 
-	private void sortShapes() {
-		// TODO Auto-generated method stub
-//		if(sortType == 'b' || sortType =='B')
-//		{
-//			if(compareType == 'h')
-//			{
-//				
-//			}
-//		}
-		
-	}
-
-
-	private void fillShapes() {
+	public void fillShapes() {
 		try 
 		{
 			Object o;
-            FileReader fileReader = new FileReader(fileName);
+            FileReader fileReader = new FileReader("C:\\Users\\user\\Desktop\\OOP 3\\Assign1_OOP\\res\\polyfor1.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
 
@@ -72,7 +82,7 @@ public class SortManager {
             for(int i = 0; i < shapes.length; i++) {
             	String className = "shape."+ fields[counter++];
                  
-                //System.out.println(className);
+                System.out.println(className);
                 //this prints the Shape name
      			Class cls = Class.forName(className);
      			
@@ -92,7 +102,7 @@ public class SortManager {
  				o = ct.newInstance(argList);
  				
  				shapes[i] = (Shape) o;
- 				//System.out.println(shapes[i]);
+ 				System.out.println(shapes[i]);
             	//this prints the values
             
            

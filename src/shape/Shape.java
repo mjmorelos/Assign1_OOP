@@ -32,11 +32,11 @@ public abstract class Shape implements Comparable<Shape>, Comparator<Shape> {
 	}
 
 	@Override
-	public int compare(Shape thatShape, Shape otherShape) {
-		if (thatShape.getVolume() < otherShape.getVolume()) {
+	public int compare(Shape firstShape, Shape secondShape) {
+		if (firstShape.getVolume() < secondShape.getVolume()) {
 			return -1;
 		}
-		if (thatShape.getVolume() > otherShape.getVolume()) {
+		if (firstShape.getVolume() > secondShape.getVolume()) {
 			return 1;
 		}
 		return 0;
