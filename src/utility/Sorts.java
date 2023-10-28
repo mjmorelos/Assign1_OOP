@@ -215,7 +215,41 @@ public class Sorts {
         return i+1;  // Return the position of the pivot
     }
 
-    // implement sorting alg of choice
+    
+    //////////////////////////////////////////////////////////////////////
+    // sorting algorithm of choice Shell Sort
+  
+    // Shell Sort for naturally comparable types
+    public static <T extends Comparable<? super T>> void shellSort(T[] array) {
+        int n = array.length;
+        // Start with a big gap, then reduce the gap
+        for (int gap = n/2; gap > 0; gap /= 2) {
+            // Do a gapped insertion sort for this gap size.
+            for (int i = gap; i < n; i++) {
+                T temp = array[i];
+                int j;
+                for (j = i; j >= gap && array[j - gap].compareTo(temp) > 0; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+    }
 
+    // Shell Sort with a custom comparator
+    public static <T> void shellSort(T[] array, Comparator<? super T> c) {
+        int n = array.length;
+        for (int gap = n/2; gap > 0; gap /= 2) {
+            for (int i = gap; i < n; i++) {
+                T temp = array[i];
+                int j;
+                for (j = i; j >= gap && c.compare(array[j - gap], temp) > 0; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+    }
+    
 }
 
