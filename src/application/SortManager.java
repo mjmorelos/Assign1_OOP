@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import shape.Shape;
 
-public class SortManager {
+public clas SortManager {
 	char comparison;
 	char sortType;
 	String fileName;
